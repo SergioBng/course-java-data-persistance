@@ -1,8 +1,13 @@
 package com.rakovets.course_java_enterprise.example.jdbc;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-public class JdbcDemo {
+public class JdbcExample {
     private static final String DATASOURCE_DRIVER = "org.mariadb.jdbc.Driver";
     private static final String DATASOURCE_URL = "jdbc:mariadb://localhost:3306/library";
     private static final String DATASOURCE_USER = "root";
@@ -14,7 +19,7 @@ public class JdbcDemo {
         } catch (ClassNotFoundException e) {
             System.out.println("Didn't found JDBC Driver: " + DATASOURCE_DRIVER);
         }
-        try(Connection connection = DriverManager.getConnection(DATASOURCE_URL, DATASOURCE_USER, DATASOURCE_PASSWORD)) {
+        try (Connection connection = DriverManager.getConnection(DATASOURCE_URL, DATASOURCE_USER, DATASOURCE_PASSWORD)) {
             // Statement
             Statement statement = connection.createStatement();
 
@@ -27,7 +32,7 @@ public class JdbcDemo {
             // Read book by id
             int id = 1;
             resultSet = statement.executeQuery("SELECT * FROM books WHERE id = " + id);
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 printBook(resultSet);
             }
 
